@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 
 ```{python}
 # Load CSV
-df = pd.read_csv("../data/raw/watershed.csv")
+df = pd.read_csv("data/raw/watershed.csv")
 ```
 
 
@@ -188,15 +188,11 @@ print(f"Condition value of raw X matrix: {round(raw_cond, 3)}")
 
 Q @ R $\approx$ X verifies that Q and R are the factored decomposition of X into orthogonal and upper triangular matricies, Q and R. Q.T @ Q $\approx$ I verifies Q is indeed orthogonal. The singular values $\sigma$ of the SVD show the directions in which the linear model is most and least drawn towards and therefore most and least represented in the model.
 
-A large condition number suggests the predictors are sensitive to small changes and that the predictors are nearly linearly dependent. After standardization, the condition number decreased from `{python}round(raw_cond, 3)` to `{python}round(np.linalg.cond(X), 3)`. 
-
-4. what a large condition number suggests;
-5. whether the condition number changed after standardization;
-6. why measurement scale can affect the raw condition number;
-7. whether the standardized design matrix shows evidence of severe near-
-redundancy among predictors.
+A large condition number suggests the predictors are sensitive to small changes and that the predictors are nearly linearly dependent. After standardization, the condition number decreased from ```{python}round(raw_cond, 3)``` to ```{python}round(np.linalg.cond(X), 3)```. This suggests the standardization of predictors reduces their sensitivity to small pertubations. The measurment scale of a predictor can affect the raw condition number because their raw values are measured in units may be are orders of magnitude different. The low condition number indicates the standardized design matrix does not show evidence of severe near-redundancy among predictors.
 
 # 5 Reproducibility and numerical computing reflection
+
+Clean executionin computational reports matters
 
 Write 250–400 words addressing all of the following:
 1. Why does clean execution matter for a computational report?
