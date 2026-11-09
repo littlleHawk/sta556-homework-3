@@ -9,7 +9,7 @@ jupyter: python3
 
 ## 1.1 Introduction
 
-The watershed dataset is a synthetic dataset relating `snowpack_pct_normal`, `precip_mm`, and `mean_temp_c` to `streamflow_index`. This document aims to fit and diagnose a linear model using these predictors to model the response, `streamflow_index` using matrix computation in python.
+The watershed dataset is a synthetic dataset relating `snowpack_pct_normal`, `precip_mm`, and `mean_temp_c` to `streamflow_index`. This document aims to fit and diagnose a linear model using these predictors (`snowpack_pct_normal`, `precip_mm`, and `mean_temp_c`) to model the response, `streamflow_index` using matrix computation in python.
 
 ## 1.2 Data Inspection and Validation
 
@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 
 ```{python}
 # Load CSV
-df = pd.read_csv("data/raw/watershed.csv")
+df = pd.read_csv("data/watershed.csv")
 ```
 
 
@@ -32,10 +32,10 @@ print(f"Data Frame first 5 rows: \n{df.head()} \n\n")
 print(f"Shape: {df.shape} \n \n")
 print(f"Data types: \n{df.dtypes} \n \n")
 print(f"Missingness: \n{df.isna().sum()} \n \n")
-print(f"Are IDs Unique? {df["id"].is_unique} \n \n")
+print(f"Are IDs Unique? {df['id'].is_unique} \n \n")
 ```
 
-The Watershed dataset contains 125 observations with 5 fields: `id`, `snowpack_pct_normal`, `precip_mm`, `mean_temp_c`, and `streamflow_index`. All variables have a `float64` data type except for `id`, which has a type of `int64`. There is no missingness coded as `None` or `NA` in any field and IDs are unique. At this point, there are no data quality concerns.
+The Watershed dataset contains `{python} df.shape[0]` observations with `{python} df.shape[1]` fields: `id`, `snowpack_pct_normal`, `precip_mm`, `mean_temp_c`, and `streamflow_index`. All variables have a `float64` data type except for `id`, which has a type of `int64`. There is no missingness in any field, as shown by the `Missingness: ` call, and IDs are unique. The only concern is if any missingness is coded other than `None`, which `df.isna().sum()` would not detect. Since there is no evidence that missingness is coded any other way, there are no data quality concerns at this point.
 
 # 2 Matrix setup and standardization
 ```{python}
@@ -64,7 +64,7 @@ print(f"Means (snowpack_pct_normal, precip_mm, mean_temp_c): \n{Z.mean(axis=0)} 
 print(f"Standard Deviations (snowpack_pct_normal, precip_mm mean_temp_c): \n{Z.std(axis=0)} \n")
 ```
 
-The standardization normalizes each value in each predictor column such that their distributions resemble that of a normal distribution $\sim \mathcal{N}(0, 1)$. The means of each predictor column are approximately zero, and the standard deviations are 1, showing a successful normaliztion.
+The standardization normalizes the scale of each value in each predictor column such that their distributions have a common scale with mean zero and standard deviation of one. The means of each predictor column are approximately zero, and the standard deviations are one, showing a successful normalization.
 
 ## 2.2 Construct the design matrix
 
@@ -85,7 +85,7 @@ print(f"matrix rank of X: {np.linalg.matrix_rank(X)}\n")
 print(f"number of predictors excluding the intercept: {np.linalg.matrix_rank(X)-1}\n")
 ```
 
-X and y must have compatible shapes because one row of parameters in X represents one observation, corresponding to one response in each row of y. The intercept column is included as all 1s to apply an equal $\beta_0$ parameter to each value and to represent the baseline value when all predictor values are zero. This dataset has values in `precip_mm` that are generally 20 times higher than those of `mean_temp_c`. Standardizing the predictors places all their values on a common scale of deviation from the mean, so they have similarly scaled parameters and the regression is more consistant. Numpy broadcasting allows operations on arrays of compatible shapes and performs these operations element-by-element by vectorizing the equation.
+X and y must have compatible shapes because one row of predictors in X represents one observation, corresponding to one response in each row of y. The intercept column is included as all 1s to apply an equal $\beta_0$ parameter to each value and to represent the baseline value when all predictor values are zero. This dataset has values in `precip_mm` that are generally `{python} str(round(df['precip_mm'].mean()/df['mean_temp_c'].mean(), 2))` times higher than those of `mean_temp_c`. Standardizing the predictors places all their values on a common scale of deviation from the mean, so they have similarly scaled parameters and the regression is more consistent. NumPy  broadcasting allows operations on arrays of compatible shapes and performs these operations element-by-element by vectorizing the equation. The mean and standard deviation vectors have shape `{python} means.shape`, which are stretched across all `{python} predictors.shape[0]` rows.
 
 # 3 Least Squares
 
@@ -99,7 +99,7 @@ print(f"normalized precip_mm: {round(beta_hat[2], 3)}")
 print(f"normalized mean_temp_c: {round(beta_hat[3], 3)}")
 ```
 
-The predictor with the largest absolute value coefficient is the intercept $\beta_0$.
+The predictor with the largest absolute value coefficient is `snowpack_pct_normal` with a value of `{python} str(round(beta_hat[1], 3))`
 
 ## 3.2 Calculate fitted values and residuals
 ```{python}
@@ -115,7 +115,7 @@ print(f"Residuals mean: {residuals.mean()}\n")
 print(f"RMSE: {round(rmse, 4)}")
 ```
 
-`X @ beta_hat` is the matrix multiplication $X\hat{\vec{\beta}}$ which results in the vector of predicted values $\hat{\vec{y}}$ created using the linear model. The residual mean is nearly zero, indicating the model is finding the best fit line between all given predictor values such that their distances from the line ($(y_i -\hat(y_i))^2$) cancel each other out: the model does not over or under predict any particular values. RMSE summarizes the typical distance of a residual point from the mean zero, or the average magnitude of error. This value matches the standard deviation of residuals. In these calculations, we use `X @ beta_hat` instead of `X * beta_hat` because the former is standard matrix multiplication and the latter is an element-wise matrix multiplication that applies `beta_hat` down each column and does not sum any values.
+`X @ beta_hat` is the matrix multiplication $X\hat{\vec{\beta}}$, which results in the vector of predicted values $\hat{\vec{y}}$ created using the linear model. The residual mean is nearly zero, indicating the model is finding the best-fit line between all given predictor values such that their distances from the line ($(y_i -\hat{y}_i)^2$) sum to zero. RMSE is the typical distance of a residual point from the mean (in this case, zero), or the average magnitude of residual error in the response units. In these calculations, we use `X @ beta_hat` instead of `X * beta_hat` because the former is standard matrix multiplication and the latter is an element-wise scalar multiplication that multiplies `beta_hat` with each row and does not sum any values.
 
 # 4 QR, SVD, and conditioning
 
@@ -152,7 +152,7 @@ print(f"Shape of Vt: {Vt.shape}\n")
 print(f"Singular Values: {s}\n")
 ```
 
-Reconstruct X ($U \dot s \dot Vt$):
+Reconstruct X  from $U \cdot s \cdot Vt$:
 ```{python}
 X_reconstructed = (
 U@ np.diag(s)
@@ -186,10 +186,10 @@ raw_cond = np.linalg.cond(X_raw)
 print(f"Condition value of raw X matrix: {round(raw_cond, 3)}")
 ```
 
-Q @ R $\approx$ X verifies that Q and R are the factored decomposition of X into orthogonal and upper triangular matricies, Q and R. Q.T @ Q $\approx$ I verifies Q is indeed orthogonal. The singular values $\sigma$ of the SVD show the directions in which the linear model is most and least drawn towards and therefore most and least represented in the model.
+Q @ R $\approx$ X verifies that Q and R are the factored decomposition of X into orthogonal and upper triangular matrices, Q and R. Q.T @ Q $\approx$ I verifies Q is indeed orthogonal. The singular values $\sigma$ of the SVD show the directions in which the linear model has more or less variation. Large singular values are the most represented in the model because they carry the most information. The ratio of the largest to smallest singular values gives the condition number. 
 
-A large condition number suggests the predictors are sensitive to small changes and that the predictors are nearly linearly dependent. After standardization, the condition number decreased from ```{python}round(raw_cond, 3)``` to ```{python}round(np.linalg.cond(X), 3)```. This suggests the standardization of predictors reduces their sensitivity to small pertubations. The measurment scale of a predictor can affect the raw condition number because their raw values are measured in units may be are orders of magnitude different. The low condition number indicates the standardized design matrix does not show evidence of severe near-redundancy among predictors.
+A large condition number suggests the model is sensitive to small changes and that the predictors may be nearly linearly dependent. After standardization, the condition number decreased from `{python} str(round(raw_cond, 3))` to `{python} str(round(np.linalg.cond(X), 3))`. This suggests the standardization of predictors reduces their sensitivity to small perturbations. The measurement scale of a predictor can affect the raw condition number because its singular values in different predictors' directions may be amplified by its scale, leading to a larger difference between the smallest and largest singular values. The low condition number indicates the standardized design matrix does not show evidence of collinearity among predictors and that the large raw condition value is mostly due to scaling differences instead.
 
 # 5 Reproducibility and numerical computing reflection
 
-Clean execution in computational reports matters because it allows for the results to be reproducible by anyone with access to the code base. It also helps provide evidence for each finding and supports results by employing literate programming to show the narrative alongside supporting code and results. Reusable code should not depend on hidden notebook state because it may appear correct, but an unintuitive or undisclosed order of cell execution will cause the results to not be reproducible or for data to be inadvertently overwritten. It is preferable to use `np.linalg.lstsq()` over manually computing $(X^TX)^{-1}X^Ty$ in ordinary numerical work because the manual computation includes rounding after each step when done on a computer. A solution using `np.linalg.lstsq()` will be more precise. This approximation in computer-based solutions with floating-point math is also why checks for QR and SVD reconstruction prefer `np.allclose()`. The condition number comparison taught me that instability in the model from collinearity or large differences in predictor scales can be measured using a condition number. A large condition number may not mean that the data is flawed, rather that the different scales of predictors may affect the precision of the model and can indicate when standardization or removing predictors may be necessary for a good model. Differentiating between if a condition number can be reduced by standardization or if it indicates near-linear dependance between variables requires some understanding of the data and needs to be done in context. One reproducability practice from this homework I will carry into the final project is sequential and logical execution of code. When I write my report, I will call upon source code and examples to support my claims in a way that can be rendered the same way each time by any user.
+Clean execution in computational reports matters because it lets anyone with access to the codebase reproduce the results. It also helps provide evidence for each finding and supports results by employing literate programming to show the narrative alongside supporting code and results. Reusable code should not depend on hidden notebook state because it may appear correct, but an unintuitive or undisclosed order of cell execution will cause the results to not be reproducible or for data to be inadvertently overwritten. It is preferable to use `np.linalg.lstsq()` over manually computing $(X^TX)^{-1}X^Ty$ in ordinary numerical work because the manual computation includes rounding after each step when done on a computer. A solution using `np.linalg.lstsq()` will be more precise. This approximation in computer-based solutions with floating-point math is also why checks for QR and SVD reconstruction prefer `np.allclose()` to exact equality to the design matrix $X$. The condition number comparison taught me that instability in the model from collinearity or large differences in predictor scales can be measured using a condition number. A large condition number may not mean that the data is flawed, but rather that the different scales of predictors may affect the precision of the model and can indicate when standardization or removing predictors may be necessary for a good model. Differentiating between whether a condition number can be reduced by standardization or if it indicates near-linear dependence between variables requires some understanding of the data and needs to be done in context. One reproducibility practice from this homework I will carry into the final project is sequential and logical execution of code that can be reproduced from a clean session. When I write my report, I will call upon source code and examples to support my claims in a way that can be rendered the same way each time by any user.
