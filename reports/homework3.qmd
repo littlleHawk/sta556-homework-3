@@ -162,8 +162,7 @@ U@ np.diag(s)
 ```{python}
 # Verify:
 print(f"SVD Reconstruction of X is equal to X, within tolerance: {np.allclose(
-X_reconstructed,
-X)}")
+X_reconstructed, X)}")
 ```
 
 ## 4.3 Rank and conditioning
@@ -186,7 +185,7 @@ raw_cond = np.linalg.cond(X_raw)
 print(f"Condition value of raw X matrix: {round(raw_cond, 3)}")
 ```
 
-Q @ R $\approx$ X verifies that Q and R are the factored decomposition of X into orthogonal and upper triangular matrices, Q and R. Q.T @ Q $\approx$ I verifies Q is indeed orthogonal. The singular values $\sigma$ of the SVD show the directions in which the linear model has more or less variation. Large singular values are the most represented in the model because they carry the most information. The ratio of the largest to smallest singular values gives the condition number. 
+Q @ R $\approx$ X verifies that Q and R are the factored decomposition of X into orthogonal and upper triangular matrices, Q and R. Q.T @ Q $\approx I$ verifies Q is indeed orthogonal. The rank of a matrix is the number of linearly independant predictors. Here, that number matches the number of columns which helps indicate the predictors are linearly independant. The singular values $\sigma$ of the SVD show the directions in which the linear model has more or less variation. Large singular values are the most represented in the model because they carry the most information. The ratio of the largest to smallest singular values gives the condition number.
 
 A large condition number suggests the model is sensitive to small changes and that the predictors may be nearly linearly dependent. After standardization, the condition number decreased from `{python} str(round(raw_cond, 3))` to `{python} str(round(np.linalg.cond(X), 3))`. This suggests the standardization of predictors reduces their sensitivity to small perturbations. The measurement scale of a predictor can affect the raw condition number because its singular values in different predictors' directions may be amplified by its scale, leading to a larger difference between the smallest and largest singular values. The low condition number indicates the standardized design matrix does not show evidence of collinearity among predictors and that the large raw condition value is mostly due to scaling differences instead.
 
