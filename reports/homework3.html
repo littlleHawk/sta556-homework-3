@@ -148,18 +148,18 @@ window.Quarto = {
 </section>
 <section id="data-inspection-and-validation" class="level2">
 <h2 class="anchored" data-anchor-id="data-inspection-and-validation">1.2 Data Inspection and Validation</h2>
-<div id="c20af5da" class="cell" data-execution_count="1">
+<div id="52456e3b" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="1e26e000" class="cell" data-execution_count="2">
+<div id="5973cce4" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load CSV</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/raw/watershed.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Data Inspection</p>
-<div id="2064f7aa" class="cell" data-execution_count="3">
+<div id="96d1afbf" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Data Frame first 5 rows: </span><span class="ch">\n</span><span class="sc">{</span>df<span class="sc">.</span>head()<span class="sc">}</span><span class="ss"> </span><span class="ch">\n\n</span><span class="ss">"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape: </span><span class="sc">{</span>df<span class="sc">.</span>shape<span class="sc">}</span><span class="ss"> </span><span class="ch">\n</span><span class="ss"> </span><span class="ch">\n</span><span class="ss">"</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Data types: </span><span class="ch">\n</span><span class="sc">{</span>df<span class="sc">.</span>dtypes<span class="sc">}</span><span class="ss"> </span><span class="ch">\n</span><span class="ss"> </span><span class="ch">\n</span><span class="ss">"</span>)</span>
@@ -206,7 +206,7 @@ Are IDs Unique? True
 </section>
 <section id="matrix-setup-and-standardization" class="level1">
 <h1>2 Matrix setup and standardization</h1>
-<div id="030fdf9b" class="cell" data-execution_count="4">
+<div id="c3b8d991" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>predictors <span class="op">=</span> df[[</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"snowpack_pct_normal"</span>,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"precip_mm"</span>,</span>
@@ -216,7 +216,7 @@ Are IDs Unique? True
 </div>
 <section id="predictor-standardization" class="level2">
 <h2 class="anchored" data-anchor-id="predictor-standardization">2.1 Predictor standardization</h2>
-<div id="ea962746" class="cell" data-execution_count="5">
+<div id="d03cee09" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> predictors.mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sds <span class="op">=</span> predictors.std(axis<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -225,7 +225,7 @@ Are IDs Unique? True
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>) <span class="op">/</span> sds</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Verify approximately:</p>
-<div id="86a9d47f" class="cell" data-execution_count="6">
+<div id="7d8a1e16" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Means (snowpack_pct_normal, precip_mm, mean_temp_c): </span><span class="ch">\n</span><span class="sc">{</span>Z<span class="sc">.</span>mean(axis<span class="op">=</span><span class="dv">0</span>)<span class="sc">}</span><span class="ss"> </span><span class="ch">\n</span><span class="ss">"</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Standard Deviations (snowpack_pct_normal, precip_mm mean_temp_c): </span><span class="ch">\n</span><span class="sc">{</span>Z<span class="sc">.</span>std(axis<span class="op">=</span><span class="dv">0</span>)<span class="sc">}</span><span class="ss"> </span><span class="ch">\n</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -241,13 +241,13 @@ Standard Deviations (snowpack_pct_normal, precip_mm mean_temp_c):
 </section>
 <section id="construct-the-design-matrix" class="level2">
 <h2 class="anchored" data-anchor-id="construct-the-design-matrix">2.2 Construct the design matrix</h2>
-<div id="5f0093c1" class="cell" data-execution_count="7">
+<div id="78259980" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add an intercept column:</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.column_stack([</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>np.ones(<span class="bu">len</span>(Z)),</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>Z ])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="25cf97c3" class="cell" data-execution_count="8">
+<div id="d888bbd8" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape of predictors: </span><span class="sc">{</span>predictors<span class="sc">.</span>shape<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"shape of Z: </span><span class="sc">{</span>Z<span class="sc">.</span>shape<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"shape of X: </span><span class="sc">{</span>X<span class="sc">.</span>shape<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
@@ -277,7 +277,7 @@ number of predictors excluding the intercept: 3
 <h1>3 Least Squares</h1>
 <section id="fit-a-linear-model" class="level2">
 <h2 class="anchored" data-anchor-id="fit-a-linear-model">3.1 Fit a linear model</h2>
-<div id="09fcecd2" class="cell" data-execution_count="9">
+<div id="585e83f9" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>beta_hat, <span class="op">*</span>_ <span class="op">=</span> np.linalg.lstsq(X,y,rcond<span class="op">=</span><span class="va">None</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimated Coefficients: </span><span class="sc">{</span>beta_hat<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Intercept: </span><span class="sc">{</span><span class="bu">round</span>(beta_hat[<span class="dv">0</span>], <span class="dv">3</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -296,11 +296,11 @@ normalized mean_temp_c: -4.106</code></pre>
 </section>
 <section id="calculate-fitted-values-and-residuals" class="level2">
 <h2 class="anchored" data-anchor-id="calculate-fitted-values-and-residuals">3.2 Calculate fitted values and residuals</h2>
-<div id="93b6ceeb" class="cell" data-execution_count="10">
+<div id="2d82ecfe" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fitted <span class="op">=</span> X <span class="op">@</span> beta_hat</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>residuals <span class="op">=</span> y <span class="op">-</span> fitted</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="a68fbc17" class="cell" data-execution_count="11">
+<div id="21ca19e5" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rmse <span class="op">=</span> np.sqrt(</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>np.mean(</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>residuals <span class="op">**</span> <span class="dv">2</span>))</span>
@@ -319,7 +319,7 @@ RMSE: 7.5135</code></pre>
 <h1>4 QR, SVD, and conditioning</h1>
 <section id="qr-decomposition" class="level2">
 <h2 class="anchored" data-anchor-id="qr-decomposition">4.1 QR decomposition</h2>
-<div id="a02e840f" class="cell" data-execution_count="12">
+<div id="f0fea2e0" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Q, R <span class="op">=</span> np.linalg.qr(X)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape Q: </span><span class="sc">{</span>Q<span class="sc">.</span>shape<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape R: </span><span class="sc">{</span>R<span class="sc">.</span>shape<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -330,7 +330,7 @@ Shape R: (4, 4)
 </code></pre>
 </div>
 </div>
-<div id="6ea72520" class="cell" data-execution_count="13">
+<div id="bdb723a1" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Verify Q@R = X:</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Q @ R equals X, within tolarance: </span><span class="sc">{</span>np<span class="sc">.</span>allclose( <span class="co"># both matricies are approximately equal element-wise </span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>Q <span class="op">@</span> R,</span>
@@ -340,7 +340,7 @@ Shape R: (4, 4)
 </code></pre>
 </div>
 </div>
-<div id="d0d35c55" class="cell" data-execution_count="14">
+<div id="1689d900" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Q transposed @ Q equals the identity matrix I, within tolarance: </span><span class="sc">{</span>np<span class="sc">.</span>allclose(</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>Q.T <span class="op">@</span> Q,</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>np.eye(Q.shape[<span class="dv">1</span>])</span>
@@ -353,7 +353,7 @@ Shape R: (4, 4)
 </section>
 <section id="svd" class="level2">
 <h2 class="anchored" data-anchor-id="svd">4.2 SVD</h2>
-<div id="6f386884" class="cell" data-execution_count="15">
+<div id="deaa28ca" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>U, s, Vt <span class="op">=</span> np.linalg.svd(</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>X, full_matrices<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -374,12 +374,12 @@ Singular Values: [15.94305079 11.18033989  9.86959851  4.83840438]
 </div>
 </div>
 <p>Reconstruct X (<span class="math inline">\(U \dot s \dot Vt\)</span>):</p>
-<div id="5d51b0b7" class="cell" data-execution_count="16">
+<div id="f2ca5e6c" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>X_reconstructed <span class="op">=</span> (</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>U<span class="op">@</span> np.diag(s)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="op">@</span> Vt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="be8d62f7" class="cell" data-execution_count="17">
+<div id="d5e33920" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify:</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"SVD Reconstruction of X is equal to X, within tolerance: </span><span class="sc">{</span>np<span class="sc">.</span>allclose(</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>X_reconstructed,</span>
@@ -391,7 +391,7 @@ Singular Values: [15.94305079 11.18033989  9.86959851  4.83840438]
 </section>
 <section id="rank-and-conditioning" class="level2">
 <h2 class="anchored" data-anchor-id="rank-and-conditioning">4.3 Rank and conditioning</h2>
-<div id="2021a184" class="cell" data-execution_count="18">
+<div id="d4f777b6" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Rank of X: </span><span class="sc">{</span>np<span class="sc">.</span>linalg<span class="sc">.</span>matrix_rank(X)<span class="sc">}</span><span class="ss"> </span><span class="ch">\n</span><span class="ss">"</span>)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Condition value of normalized X: </span><span class="sc">{</span><span class="bu">round</span>(np.linalg.cond(X), <span class="dv">3</span>)<span class="sc">}</span><span class="ss"> </span><span class="ch">\n</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -402,14 +402,14 @@ Condition value of normalized X: 3.295
 </div>
 </div>
 <p>Raw, unstandardized design matrix:</p>
-<div id="deb11f38" class="cell" data-execution_count="19">
+<div id="e94e9871" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>X_raw <span class="op">=</span> np.column_stack([</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>np.ones(<span class="bu">len</span>(predictors)),</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>predictors</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>and report:</p>
-<div id="451989cb" class="cell" data-execution_count="20">
+<div id="e612128b" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>raw_cond <span class="op">=</span> np.linalg.cond(X_raw)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Condition value of raw X matrix: </span><span class="sc">{</span><span class="bu">round</span>(raw_cond, <span class="dv">3</span>)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -422,9 +422,7 @@ Condition value of normalized X: 3.295
 </section>
 <section id="reproducibility-and-numerical-computing-reflection" class="level1">
 <h1>5 Reproducibility and numerical computing reflection</h1>
-<p>Clean execution</p>
-<p>Write 250–400 words addressing all of the following: 1. Why does clean execution matter for a computational report? 2. Why should reusable code not depend on hidden notebook state? 3. Why is np.linalg.lstsq() preferable to manually computing (XᵀX)⁻¹Xᵀy in ordinary numerical work? 4. Why are checks such as np.allclose() preferable to exact equality for QR and SVD reconstruction? 5. What did the condition-number comparison teach you about scale and numerical diagnostics? 6. Name one reproducibility practice from this homework that you will carry into the final project. Final reproducibility check Before submission: 1. save all files; 2. restart any active notebook kernels; 3. from the repository root run: quarto render reports/homework3.qmd 4. confirm the report renders without manual intervention; 5. run: git status 6. commit and push the final version.</p>
-<p>Reprodue by running quarto render reports/homework3.qmd</p>
+<p>Clean execution in computational reports matters because it allows for the results to be reproducible by anyone with access to the code base. It also helps provide evidence for each finding and supports results by employing literate programming to show the narrative alongside supporting code and results. Reusable code should not depend on hidden notebook state because it may appear correct, but an unintuitive or undisclosed order of cell execution will cause the results to not be reproducible or for data to be inadvertently overwritten. It is preferable to use <code>np.linalg.lstsq()</code> over manually computing <span class="math inline">\((X^TX)^{-1}X^Ty\)</span> in ordinary numerical work because the manual computation includes rounding after each step when done on a computer. A solution using <code>np.linalg.lstsq()</code> will be more precise. This approximation in computer-based solutions with floating-point math is also why checks for QR and SVD reconstruction prefer <code>np.allclose()</code>. The condition number comparison taught me that instability in the model from collinearity or large differences in predictor scales can be measured using a condition number. A large condition number may not mean that the data is flawed, rather that the different scales of predictors may affect the precision of the model and can indicate when standardization or removing predictors may be necessary for a good model. Differentiating between if a condition number can be reduced by standardization or if it indicates near-linear dependance between variables requires some understanding of the data and needs to be done in context. One reproducability practice from this homework I will carry into the final project is sequential and logical execution of code. When I write my report, I will call upon source code and examples to support my claims in a way that can be rendered the same way each time by any user.</p>
 </section>
 
 </main>

@@ -192,29 +192,4 @@ A large condition number suggests the predictors are sensitive to small changes 
 
 # 5 Reproducibility and numerical computing reflection
 
-Clean execution in computational reports matters because it allows for the results to be reproducable by anyone with access to the code base. It also helps give evidence for each finding and supports results by employing literate programming to show the narrative alongside supporting code and results. Reusable code should not depend on hidden notebook state because it may appear correct, but an unintuitive or undisclosed order of cell execution will cause the results to not be reproducable or for data to be inadvertantly overwritten. It is preferrable to use `np.linalg.lstsq()` over manually computing $(X^TX)^{-1}X^Ty$ in ordinary numerical work because the manual computation includes rounding after each step when done on a computer. A solution using `np.linalg.lstsq()` will be more precise. This appoximation in computer-based solutions with floating point math is also why checks for QR and SVD reconstruction prefer `np.allclose()`.
-
-Write 250–400 words addressing all of the following:
-1. Why does clean execution matter for a computational report?
-2. Why should reusable code not depend on hidden notebook state?
-3. Why is np.linalg.lstsq() preferable to manually computing (XᵀX)⁻¹Xᵀy
-in ordinary numerical work?
-4. Why are checks such as np.allclose() preferable to exact equality for QR
-and SVD reconstruction?
-5. What did the condition-number comparison teach you about scale and
-numerical diagnostics?
-6. Name one reproducibility practice from this homework that you will carry
-into the final project.
-
-Final reproducibility check
-Before submission:
-1. save all files;
-2. restart any active notebook kernels;
-3. from the repository root run:
-quarto render reports/homework3.qmd
-4. confirm the report renders without manual intervention;
-5. run:
-git status
-6. commit and push the final version.
-
-Reprodue by running quarto render reports/homework3.qmd
+Clean execution in computational reports matters because it allows for the results to be reproducible by anyone with access to the code base. It also helps provide evidence for each finding and supports results by employing literate programming to show the narrative alongside supporting code and results. Reusable code should not depend on hidden notebook state because it may appear correct, but an unintuitive or undisclosed order of cell execution will cause the results to not be reproducible or for data to be inadvertently overwritten. It is preferable to use `np.linalg.lstsq()` over manually computing $(X^TX)^{-1}X^Ty$ in ordinary numerical work because the manual computation includes rounding after each step when done on a computer. A solution using `np.linalg.lstsq()` will be more precise. This approximation in computer-based solutions with floating-point math is also why checks for QR and SVD reconstruction prefer `np.allclose()`. The condition number comparison taught me that instability in the model from collinearity or large differences in predictor scales can be measured using a condition number. A large condition number may not mean that the data is flawed, rather that the different scales of predictors may affect the precision of the model and can indicate when standardization or removing predictors may be necessary for a good model. Differentiating between if a condition number can be reduced by standardization or if it indicates near-linear dependance between variables requires some understanding of the data and needs to be done in context. One reproducability practice from this homework I will carry into the final project is sequential and logical execution of code. When I write my report, I will call upon source code and examples to support my claims in a way that can be rendered the same way each time by any user.
